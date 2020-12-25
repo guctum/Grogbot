@@ -1,14 +1,18 @@
 import os
 import random
 import requests
+import scraper
 
 import discord
 from dotenv import load_dotenv
+from bs4 import BeautifulSoup
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 client = discord.Client()
+
+scraper = scraper
 
 @client.event
 async def on_ready():
