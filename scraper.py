@@ -1,15 +1,18 @@
 import requests
 from bs4 import BeautifulSoup
 from itertools import islice
-
-url = 'https://store.steampowered.com/search/?filter=topsellers&tags=19'
-header = {
-    'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
-}
-response = requests.get(url, headers=header)
+from typing import Any
 
 def get_action_games():
     print("Retrieving action games")
+
+    url = 'https://store.steampowered.com/search/?filter=topsellers&tags=19'
+    header = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
+    }
+
+    response = requests.get(url, headers=header)
+
     soup = BeautifulSoup(response.content, 'html.parser')
     names = []
     for x in soup.find_all("span", {"class": "title"}):
@@ -24,6 +27,6 @@ def get_action_games():
             prices.remove(price)
             break
 
-    n_items = list(islice(res.items(), 10))
+    n_items: list[Any] = list(islice(res.items(), 10))
 
-    print(n_items)
+    return n_items.__str__()

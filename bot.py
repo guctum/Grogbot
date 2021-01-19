@@ -5,7 +5,6 @@ import scraper
 
 import discord
 from dotenv import load_dotenv
-from bs4 import BeautifulSoup
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -35,6 +34,7 @@ async def on_message(message):
     if message.content == '!99':
         response = random.choice(brooklyn_99_quotes)
         await message.channel.send(response)
+        # TODO: look into hitting a Brooklyn 99 quotes API
 
     if message.content == '!joke':
         url = "https://icanhazdadjoke.com"
@@ -42,5 +42,7 @@ async def on_message(message):
         response = requests.get(url, headers=headers).json().get('joke')
         await message.channel.send(response)
 
+    if message.content == '!action':
+        await message.channel.send(scraper.get_action_games())
 
 client.run(TOKEN)
