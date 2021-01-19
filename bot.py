@@ -45,4 +45,10 @@ async def on_message(message):
     if message.content == '!action':
         await message.channel.send(scraper.get_action_games())
 
+    if message.content == '!rpg':
+        await message.channel.send(scraper.get_rpg_games())
+
+    if message.content == '!mp':
+        await message.channel.send(scraper.get_mp_games())
+
 client.run(TOKEN)
