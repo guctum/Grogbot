@@ -1,12 +1,24 @@
 import requests
+import re
 from bs4 import BeautifulSoup
 from itertools import islice
 from typing import Any
 
-def get_action_games():
-    print("Retrieving action games")
+def convertTuple(tup):
+    str =  ' '.join(tup)
+    return str
 
-    url = 'https://store.steampowered.com/search/?filter=topsellers&tags=19'
+def retrieveTopGames(category):
+    url = ""
+    if category == "action":
+        url = 'https://store.steampowered.com/search/?filter=topsellers&tags=19'
+        print("Retrieving action games.")
+    elif category == "rpg":
+        url = 'https://store.steampowered.com/search/?filter=topsellers&tags=122'
+        print("Retrieving RPG games.")
+    elif category == "multiplayer":
+        url = 'https://store.steampowered.com/search/?sort_by=Released_DESC&tags=3859'
+        print("Retrieving multiplayer games.")
     header = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
     }
@@ -27,62 +39,12 @@ def get_action_games():
             prices.remove(price)
             break
 
+    result = ""
     n_items: list[Any] = list(islice(res.items(), 10))
-
-    return n_items.__str__()
-
-def get_rpg_games():
-    print("Retrieving RPG games")
-
-    url = 'https://store.steampowered.com/search/?filter=topsellers&tags=122'
-    header = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
-    }
-
-    response = requests.get(url, headers=header)
-
-    soup = BeautifulSoup(response.content, 'html.parser')
-    names = []
-    for x in soup.find_all("span", {"class": "title"}):
-        names.append(x.get_text())
-    prices = []
-    for y in soup.find_all("div", {"class": "search_price"}):
-        prices.append((y.get_text()).replace("\r\n", "").strip())
-    res = {}
-    for name in names:
-        for price in prices:
-            res[name] = price
-            prices.remove(price)
-            break
-
-    n_items: list[Any] = list(islice(res.items(), 10))
-
-    return n_items.__str__()
-
-def get_mp_games():
-    print("Retrieving multiplayer games")
-
-    url = 'https://store.steampowered.com/search/?sort_by=Released_DESC&tags=3859'
-    header = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
-    }
-
-    response = requests.get(url, headers=header)
-
-    soup = BeautifulSoup(response.content, 'html.parser')
-    names = []
-    for x in soup.find_all("span", {"class": "title"}):
-        names.append(x.get_text())
-    prices = []
-    for y in soup.find_all("div", {"class": "search_price"}):
-        prices.append((y.get_text()).replace("\r\n", "").strip())
-    res = {}
-    for name in names:
-        for price in prices:
-            res[name] = price
-            prices.remove(price)
-            break
-
-    n_items: list[Any] = list(islice(res.items(), 10))
-
-    return n_items.__str__()
+    for key in n_items:
+        result += convertTuple(key)
+        result += "\n"
+    r1 = re.findall(r"[$]\d{0,2}.\d{0,2}[$]\d{0,2}.\d{0,2}", result)
+    for price in r1:
+        result = result.replace(price, price[6:len(price)])
+    return result
