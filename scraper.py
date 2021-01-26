@@ -17,7 +17,7 @@ def retrieveTopGames(category):
         url = 'https://store.steampowered.com/search/?filter=topsellers&tags=122'
         print("Retrieving RPG games.")
     elif category == "multiplayer":
-        url = 'https://store.steampowered.com/search/?sort_by=Released_DESC&tags=3859'
+        url = 'https://store.steampowered.com/search/?tags=19%2C3859&filter=topsellers'
         print("Retrieving multiplayer games.")
     header = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36',
