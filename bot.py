@@ -48,7 +48,10 @@ async def on_message(message):
         await message.channel.send("!action - display popular action games" + "\r\n" +
                                    "!rpg - display popular rpg games" + "\r\n" +
                                    "!mp - display popular multiplayer games" + "\r\n" +
-                                   "!sale - retrieve steam sale games")
+                                   "!sale - retrieve steam sale games" + "\r\n" +
+                                   "!actsale - display action games on sale" + "\r\n" +
+                                   "!indiesale - display indie games on steam" + "\r\n" +
+                                   "!mpsale - display multiplayer games on sale")
 
     if message.content == '!action':
         await message.channel.send(scraper.retrieveTopGames('action'))
