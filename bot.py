@@ -42,6 +42,12 @@ async def on_message(message):
         response = requests.get(url, headers=headers).json().get('joke')
         await message.channel.send(response)
 
+    if message.content == '!help':
+        await message.channel.send("!action - display popular action games \r\n",
+                                   "!rpg - display popular rpg games \r\n",
+                                   "!mp - display popular multiplayer games \r\n",
+                                   "!sale - retrieve steam sale games")
+
     if message.content == '!action':
         await message.channel.send(scraper.retrieveTopGames('action'))
 
@@ -50,5 +56,24 @@ async def on_message(message):
 
     if message.content == '!mp':
         await message.channel.send(scraper.retrieveTopGames("multiplayer"))
+
+    if message.content == '!sale':
+        await message.channel.send(scraper.retrieveTopGames("sale"))
+
+    if message.content == '!actsale':
+        await message.channel.send(scraper.retrieveTopGames("actsale"))
+
+    if message.content == '!indiesale':
+        await message.channel.send(scraper.retrieveTopGames("indiesale"))
+
+    if message.content == '!mpsale':
+        await message.channel.send("Work in progress." + "\r\n" +
+                                   scraper.retrieveTopGames("mpsale"))
+
+    if message.content == '!new':
+        await message.channel.send(scraper.retrieveTopGames("new"))
+
+    if message.content == '!indie':
+        await message.channel.send(scraper.retrieveTopGames("indie"))
 
 client.run(TOKEN)
