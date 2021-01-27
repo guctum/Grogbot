@@ -13,9 +13,11 @@ client = discord.Client()
 
 scraper = scraper
 
+
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
+
 
 @client.event
 async def on_message(message):
@@ -43,9 +45,9 @@ async def on_message(message):
         await message.channel.send(response)
 
     if message.content == '!help':
-        await message.channel.send("!action - display popular action games \r\n",
-                                   "!rpg - display popular rpg games \r\n",
-                                   "!mp - display popular multiplayer games \r\n",
+        await message.channel.send("!action - display popular action games" + "\r\n" +
+                                   "!rpg - display popular rpg games" + "\r\n" +
+                                   "!mp - display popular multiplayer games" + "\r\n" +
                                    "!sale - retrieve steam sale games")
 
     if message.content == '!action':
@@ -75,5 +77,6 @@ async def on_message(message):
 
     if message.content == '!indie':
         await message.channel.send(scraper.retrieveTopGames("indie"))
+
 
 client.run(TOKEN)
