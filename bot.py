@@ -44,8 +44,16 @@ async def on_message(message):
         response = requests.get(url, headers=headers).json().get('joke')
         await message.channel.send(response)
 
+    if message.content == '!chuck':
+        url = "https://api.chucknorris.io/jokes/random"
+        headers = {'Accept': 'application/json'}
+        response = requests.get(url, headers=headers).json().get('value')
+        await message.channel.send(response)
+
     if message.content == '!help':
-        await message.channel.send("!action - display popular action games" + "\r\n" +
+        await message.channel.send("!joke - get a random dad joke" + "\r\n" +
+                                   "!chuck - get a random Chuck Norris fact" + "\r\n" +
+                                   "!action - display popular action games" + "\r\n" +
                                    "!rpg - display popular rpg games" + "\r\n" +
                                    "!mp - display popular multiplayer games" + "\r\n" +
                                    "!sale - retrieve steam sale games" + "\r\n" +
