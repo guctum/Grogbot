@@ -2,9 +2,14 @@ import os
 import random
 import requests
 import scraper
+import weather
 
 import discord
+
+from discord.ext import commands
 from dotenv import load_dotenv
+
+from crontab import CronTab
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -12,7 +17,6 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 client = discord.Client()
 
 scraper = scraper
-
 
 @client.event
 async def on_ready():
@@ -88,6 +92,11 @@ async def on_message(message):
 
     if message.content == '!indie':
         await message.channel.send(scraper.retrieveTopGames("indie"))
+
+    if message.content == '!weather':
+        channelId = os.getenv('BOT_CHANNEL')
+        channel = client.get_channel(int(channelId))
+        await channel.send(weather.compileWeather())
 
 
 client.run(TOKEN)
