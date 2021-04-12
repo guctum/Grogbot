@@ -94,9 +94,9 @@ async def on_message(message):
         await message.channel.send(scraper.retrieveTopGames("indie"))
 
     if message.content == '!weather':
-        channelId = os.getenv('BOT_CHANNEL')
-        channel = client.get_channel(int(channelId))
-        await channel.send(weather.compileWeather())
+        # channelId = os.getenv('BOT_CHANNEL')
+        # channel = client.get_channel(int(channelId))
+        await message.channel.send(weather.compileWeather())
 
 
 client.run(TOKEN)
