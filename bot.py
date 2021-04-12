@@ -6,10 +6,8 @@ import weather
 
 import discord
 
-from discord.ext import commands
+from discord.ext import tasks
 from dotenv import load_dotenv
-
-from crontab import CronTab
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -94,9 +92,17 @@ async def on_message(message):
         await message.channel.send(scraper.retrieveTopGames("indie"))
 
     if message.content == '!weather':
-        # channelId = os.getenv('BOT_CHANNEL')
-        # channel = client.get_channel(int(channelId))
         await message.channel.send(weather.compileWeather())
+
+    if message.content == '!start':
+        mytask.start()
+
+@tasks.loop(seconds=86400)#1 day
+async def mytask():
+    channelId = os.getenv('BOT_CHANNEL')
+    channel = client.get_channel(int(channelId))
+    print("printing")
+    await channel.send(weather.compileWeather())
 
 
 client.run(TOKEN)
