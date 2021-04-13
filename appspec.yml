@@ -1,0 +1,14 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ec2-user/bot/Grogbot
+hooks:
+#  AfterInstall:
+#    - location: scripts/setup-environment
+#      timeout: 300
+#      runas: root
+  ApplicationStart:
+    - location: scripts/run.sh
+      timeout: 300
+      runas: root
