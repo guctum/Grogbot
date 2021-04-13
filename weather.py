@@ -14,18 +14,20 @@ def retrieveWeather(zipcode):
     propData = data['forecast']['forecastday'][0]['day']
     today = propData
     #today = next(iter(propData))
-    final_string = "**High**: " + str(today['maxtemp_f']) + "°F\r\n**Low**: " + str(today['mintemp_f']) + "°F\r\n" + "**Chance of Rain**: " + today['daily_chance_of_rain'] + "%\r\n**Condition**: " + today['condition']['text']
+    final_string = ["**High**: " + str(today['maxtemp_f']) + "°F\r\n**Low**: " + str(today['mintemp_f']) + "°F\r\n" + "**Chance of Rain**: " + today['daily_chance_of_rain'] + "%\r\n**Condition**: " + today['condition']['text'], data['current']['condition']['icon']]
+    #return final_string
     return final_string
+
 
 def compileWeather():
     current=date.today()
     embedVar = discord.Embed(title="Local Weather", description="Weather for everyone", color=0x008FFF)
-    embedVar.set_thumbnail(url="http://cdn.weatherapi.com/weather/64x64/day/116.png")
-    embedVar.add_field(name="__Grand Rapids, MI__", value=retrieveWeather("49534"), inline=False)
+    embedVar.set_thumbnail(url="https:" + retrieveWeather("49534")[1])
+    embedVar.add_field(name="__Grand Rapids, MI__", value=retrieveWeather("49534")[0], inline=False)
     embedVar.add_field(name='\u200B', value='\u200B', inline=False)
-    embedVar.add_field(name="__Commerce Township, MI__", value=retrieveWeather("48382"), inline=False)
+    embedVar.add_field(name="__Commerce Township, MI__", value=retrieveWeather("48382")[0], inline=False)
     embedVar.add_field(name='\u200B', value='\u200B', inline=False)
-    embedVar.add_field(name="__Minneapolis, MN__", value=retrieveWeather("55414"), inline=False)
+    embedVar.add_field(name="__Minneapolis, MN__", value=retrieveWeather("55414")[0], inline=False)
     embedVar.set_footer(text="Date ran: " + current.strftime('%m/%d/%Y') + ". Dev: Hunter & Greg")
     return embedVar
     """
