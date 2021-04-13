@@ -1,5 +1,4 @@
 #! /bin/sh
 
-source ~/bot/env/bin/activate
-screen
+sudo source ~/home/ec2-user/bot/env/bin/activate
 python ../bot.py

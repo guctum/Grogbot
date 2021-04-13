@@ -9,6 +9,6 @@ hooks:
 #      timeout: 300
 #      runas: root
   ApplicationStart:
-    - location: scripts/run.sh
+    - location: /home/ec2-user/bot/Grogbot/scripts/run.sh
       timeout: 300
-      runas: root
+      runas: ec2-user
