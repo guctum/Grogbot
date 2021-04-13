@@ -20,7 +20,6 @@ scraper = scraper
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
 
-
 @client.event
 async def on_message(message):
     if message.author == client.user:
@@ -92,7 +91,7 @@ async def on_message(message):
         await message.channel.send(scraper.retrieveTopGames("indie"))
 
     if message.content == '!weather':
-        await message.channel.send(weather.compileWeather())
+        await message.channel.send(embed=weather.compileWeather())
 
     if message.content == '!start':
         mytask.start()
@@ -101,8 +100,6 @@ async def on_message(message):
 async def mytask():
     channelId = os.getenv('BOT_CHANNEL')
     channel = client.get_channel(int(channelId))
-    print("printing")
-    await channel.send(weather.compileWeather())
-
+    await channel.send(embed=weather.compileWeather())
 
 client.run(TOKEN)
