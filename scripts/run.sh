@@ -2,4 +2,4 @@
 
 source ~/bot/env/bin/activate
 screen
-python bot.py
+python ../bot.py
