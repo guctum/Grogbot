@@ -18,9 +18,11 @@ client = discord.Client()
 
 scraper = scraper
 
+
 @client.event
 async def on_ready():
     print(f'{client.user} has connected to Discord!')
+
 
 @client.event
 async def on_message(message):
@@ -95,19 +97,20 @@ async def on_message(message):
     if message.content == '!weather':
         await message.channel.send(embed=weather.compileWeather())
 
-    if "!exercise" in message.content:
-        command = ""
-        try:
-            command = re.search('-\w+', message.content)[0]
-        except:
-            command = "-h"
-        #await message.channel.send(embed=exercise.getExercise(command))
-        await message.channel.send(exercise.pullInWorkouts("Arms"))
+    # if "!exercise" in message.content:
+    #    command = ""
+    #    try:
+    #        command = re.search('-\w+', message.content)[0]
+    #    except:
+    #        command = "-h"
+    #    #await message.channel.send(embed=exercise.getExercise(command))
+    #    await message.channel.send(exercise.pullInWorkouts("Arms"))
 
     if message.content == '!start':
         mytask.start()
 
-@tasks.loop(seconds=86400)#1 day
+
+@tasks.loop(seconds=86400)  # 1 day
 async def mytask():
     channelId = os.getenv('BOT_CHANNEL')
     channel = client.get_channel(int(channelId))
