@@ -98,7 +98,7 @@ async def on_message(message):
     if message.content == '!weather':
         await message.channel.send(embed=weather.compileWeather())
 
-    if "-x" in message.content:
+    if "-play" in message.content:
         url = re.search('https:\W.+', message.content)[0]
         if "track" in url:
             spotifyPlaylist.checkTrackExists(url)

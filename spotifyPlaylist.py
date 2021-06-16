@@ -10,7 +10,7 @@ def checkTrackExists(track: str):
     sp = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
     track_id = re.search('\/\w+\?', track)[0]
     track_id = track_id[1:-1]
-    pl_id = 'spotify:playlist:20Cvl99Nqn9yTF2dMyOawr'
+    pl_id = 'spotify:playlist:53kCFFiREA7NDCF0VSn3Qq'
     offset = 0
 
     while True:
@@ -35,4 +35,4 @@ def checkTrackExists(track: str):
 scope = "playlist-modify-public"
 def addTracktoPlaylist(track: str):
     sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
-    sp.playlist_add_items("20Cvl99Nqn9yTF2dMyOawr", [track])
+    sp.playlist_add_items("53kCFFiREA7NDCF0VSn3Qq", [track])
