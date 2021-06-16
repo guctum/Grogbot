@@ -5,6 +5,7 @@ import scraper
 import weather
 import exercise
 import re
+import spotifyPlaylist
 
 import discord
 
@@ -97,13 +98,18 @@ async def on_message(message):
     if message.content == '!weather':
         await message.channel.send(embed=weather.compileWeather())
 
+    if "-x" in message.content:
+        url = re.search('https:\W.+', message.content)[0]
+        if "track" in url:
+            spotifyPlaylist.checkTrackExists(url)
+
     # if "!exercise" in message.content:
     #    command = ""
     #    try:
     #        command = re.search('-\w+', message.content)[0]
     #    except:
     #        command = "-h"
-    #    #await message.channel.send(embed=exercise.getExercise(command))
+    #    await message.channel.send(embed=exercise.getExercise(command))
     #    await message.channel.send(exercise.pullInWorkouts("Arms"))
 
     if message.content == '!start':
