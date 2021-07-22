@@ -12,7 +12,10 @@ import discord
 from discord.ext import tasks
 from dotenv import load_dotenv
 
-load_dotenv()
+# load_dotenv()
+if os.path.exists(".env"):
+    load_dotenv()
+
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 client = discord.Client()
